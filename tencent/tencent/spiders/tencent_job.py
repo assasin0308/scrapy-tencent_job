@@ -4,7 +4,7 @@ from tencent.items import TencentItem
 
 class TencentJobSpider(scrapy.Spider):
     name = 'tencent'
-    allowed_domains = ['tencent.com']
+    allowed_domains = ['careers.tencent.com']
     url = 'https://careers.tencent.com/search.html?index='
     offset = 1
     start_urls = [
@@ -25,10 +25,10 @@ class TencentJobSpider(scrapy.Spider):
             # 发布时间
             item['pub_time'] = each.xpath('/a/p/span[4]/text()').extract()[0]
 
-            # print item['position_name']
-            # print item['position_type']
-            # print item['location']
-            # print item['pub_time']
+            print item['position_name']
+            print item['position_type']
+            print item['location']
+            print item['pub_time']
 
             yield item
             # jobs.append(item)
@@ -37,5 +37,4 @@ class TencentJobSpider(scrapy.Spider):
             self.offset += 1
 
         # return jobs
-
         yield scrapy.Request(self.url + str(self.offset), callback=self.parse)
